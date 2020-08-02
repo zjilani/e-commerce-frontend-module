@@ -7,7 +7,7 @@ const initalState = {
     loading: false,
     otp: null,
     customerId: null,
-    otpVerified:false
+    otpVerified:null
 
 };
 const otpVerificationStart = (state,action) => {

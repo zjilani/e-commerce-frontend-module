@@ -6,11 +6,10 @@ import Button from '../../components/UI/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './SignUp.module.css';
 import pic1 from '../../assets/images/pic1.png';
-// import axios from '../../../axios-orders';
-// import axios from 'axios';
+import axios from 'axios';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Input from '../../components/UI/Input/Input'; 
 import validator from 'validator';
-// import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 
 class SignUp extends Component {
@@ -195,4 +194,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps,mapDispatchToProps)(withErrorHandler(SignUp,axios));

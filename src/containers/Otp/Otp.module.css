@@ -1,6 +1,6 @@
 .Otp {
     margin: 100px auto;
-    width: 77%;
+    /* width: 77%; */
     text-align: center;
     box-shadow: 0 2px 3px #ccc;
     border: 2px solid #eee;
@@ -15,12 +15,8 @@
 }
 .Otp p {
     font-size: 30px;
-    color: #696262;
     
-}
-.Otp p:nth-child(3) {
-    font-size: 30px;
-    color: #ff2459;
+    color: #696262;
     
 }
 .OtpContainer input {
@@ -40,6 +36,10 @@
     .Otp {
         width: 500px;
     }
-    
 }
+/* @media (min-width: 250px) {
+    .OtpContainer{
+        width: 100px;
+    }
+} */
 

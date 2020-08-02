@@ -1,29 +1,26 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import Button from '../../components/UI/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import OTPInput from '../../components/OTPInput/index';
 import pic1 from '../../assets/images/pic1.png';
 import classes from './Otp.module.css';
+import Modal from '../../components/UI/Modal/Modal';
 import * as actions from '../../store/actions/index';
+import axios from 'axios';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 class Otp extends Component {
     state = {
         otp : '', 
         customerId : '',
-        otpSent:false
-    }
-
-    componentDidUpdate(){
-        // console.log(this.props.otp1 )
+        otpSent:null
     }
     otpHandler = (event) => {
         event.preventDefault();
         this.setState({ loading: true , otpSent: true})
         this.props.onOtpInput(this.state.otp,this.state.customerId,this.props.history);
-        
     }
     
     sendOTP = () => {
@@ -31,24 +28,17 @@ class Otp extends Component {
         this.setState({customerId: this.props.customerId})
         
     }
+    re_enterOtp = () => {
+        this.setState({otpSent: null})
+    }
     
     render() {
         let account = "Verify your Account :";
-        let verification = null;
-        if(this.state.otpSent){
-            if(this.props.otpVerified){
-                verification = "Verification Successful"
-            }else{
-                verification = "Incorrect Otp !!!"
-            }
-        }
-        
         
         let form =(
             <div className={classes.Otp}>
             <img className={classes.pic1} src={pic1} alt="Colossal"/>
                 <p>{account}</p>
-                <p>{verification}</p>
                 <Button btnType="Success" clicked={this.sendOTP}>OTP Via Email</Button>
                 <Button btnType="Success" disabled>OTP Via SMS</Button>
                 <OTPInput
@@ -67,7 +57,11 @@ class Otp extends Component {
         }
         return(
             <div>
+                <Modal show={this.state.otpSent && (this.props.error === false)} modalClosed={this.re_enterOtp}>
+                   <p>Incorrect Otp !!!</p>
+                </Modal>
                 {form}
+                
             </div>
         );
 
@@ -78,8 +72,7 @@ const mapStateToProps = state => {
     return {
         loading: state.otp.loading,
         error: state.otp.error,
-        customerId: state.signUp.customerId,
-        otpVerified: state.otp.otpVerified
+        customerId: state.signUp.customerId
     }
 };
 
@@ -91,4 +84,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Otp);
+export default connect(mapStateToProps,mapDispatchToProps)(withErrorHandler(Otp,axios));

@@ -32,18 +32,19 @@ export const otpVerification = (otp,customerId, history) => {
             .then(response => {
                 console.log(response.data);
                 let otpVerified = response.data.data.otpVerified
-                dispatch(otpVerificationSuccess(otp,customerId,otpVerified))
+                
                 if(response.data.data.otpVerified){
+                    dispatch(otpVerificationSuccess(otp,customerId,otpVerified))
                     axios.post("http://localhost:5000/notifyCustomer",{customerId:customerId, subject:"ACCONUT REGISTERED SUCCESSFULLY !!!", template: "welcome"})
                     .then(res => console.log(res))
                     .catch(err => console.log(err))
                 }
-                
-
-                // history.push('/');
+                else {
+                    
+                    dispatch(otpVerificationFail(response.data.data.otpVerified));
+                }
             })
             .catch( error => {
-                console.log(error)
                 dispatch(otpVerificationFail( error));
             });
     };

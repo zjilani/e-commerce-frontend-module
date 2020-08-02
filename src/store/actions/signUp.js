@@ -29,9 +29,12 @@ export const signUp = (formData,history) => {
         dispatch(signUpStart());
         axios.post('http://localhost:3000/createCustomer',{...formData})
             .then(response => {
-                console.log(response.data.data,response.data.data.customerId);
-                dispatch(signUpSuccess(response.data.data,response.data.data.customerId));
-                history.push('/otp');
+                if(response.data.message){
+                    dispatch(signUpFail( response.data));
+                } else{
+                    dispatch(signUpSuccess(response.data.data,response.data.data.customerId));
+                    history.push('/otp');
+                }
             })
             .catch( error => {
                 console.log(error.message)
