@@ -1,19 +1,7 @@
-/* .Button {
-    background-color: transparent;
-    border: none;
-    color: white;
-    outline: none;
-    cursor: pointer;
-    font: inherit;
-    padding: 10px;
-    margin: 10px;
-    font-weight: bold;
-} */
 .Button  {
     width: 30%;
     background-color: #47526F;
     border: none;
-    color: black;
     padding: 10px 10px;
     text-align: center;
     text-decoration: none;
@@ -36,6 +24,6 @@
     color: #E9E9E9;
 }
 
-/* .Danger {
+.Danger {
     color: #944317;
-} */
+}

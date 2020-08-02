@@ -1,19 +1,22 @@
 import React, { Component } from 'react' ;
-// import { connect } from 'react-redux';
+
+import { connect } from 'react-redux';
  
 import Button from '../../components/UI/Button/Button';
-// import Spinner from '../../../components/UI/Spinner/Spinner';
-import classes from './ContactData.module.css';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import classes from './SignUp.module.css';
 import pic1 from '../../assets/images/pic1.png';
 // import axios from '../../../axios-orders';
+// import axios from 'axios';
 import Input from '../../components/UI/Input/Input'; 
+import validator from 'validator';
 // import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
-// import * as actions from '../../../store/actions/index';
+import * as actions from '../../store/actions/index';
 
-class ContactData extends Component {
+class SignUp extends Component {
     state = {
-        orderForm: {
-            username: {
+        signUpForm: {
+            userName: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
@@ -26,7 +29,7 @@ class ContactData extends Component {
                 valid: false,
                 touched: false
             },
-            emailId: {
+            email: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
@@ -34,7 +37,8 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    isEmail: true
                 },
                 valid: false,
                 touched: false
@@ -57,8 +61,9 @@ class ContactData extends Component {
             password: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'text',
-                    placeholder: 'Password'
+                    type: 'password',
+                    placeholder: 'Password',
+                    minLength: 7 
                 },
                 value: '',
                 validation: {
@@ -71,26 +76,27 @@ class ContactData extends Component {
         formIsValid: false
     }
 
-    // orderHandler = (event) => {
-    //     event.preventDefault();
-    //     this.setState({ loading: true})
-    //     const formData = {};
-    //     for (let formElementIdentifier in this.state.orderForm){
-    //         formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
-    //     }
-    //     const order = {
-    //         ingredients: this.props.ings,
-    //         price: this.props.price,
-    //         orderData: formData,
-    //         userId: this.props.userId
-    //     }
-    //     this.props.onOrderBurger(order,this.props.token);
-    // }
+    formHandler = (event) => {
+        event.preventDefault();
+        this.setState({ loading: true})
+        const formData = {};
+        for (let formElementIdentifier in this.state.signUpForm){
+            formData[formElementIdentifier] = this.state.signUpForm[formElementIdentifier].value;
+        }
+        this.props.onSignUp(formData,this.props.history);
+        
+    }
 
     checkValidity(value, rules) {
+        
         let isValid = true;
         if (!rules){
             return true;
+        }
+        if(rules.isEmail){
+            if(!validator.isEmail(value)){
+                isValid = false;
+            }
         }
 
         if (rules.required) {
@@ -109,35 +115,35 @@ class ContactData extends Component {
     }
 
     inputChangedHandler = (event , inputIdentifier) => {
-        const updatedOrderForm = {
-            ...this.state.orderForm
+        const updatedSignUpForm = {
+            ...this.state.signUpForm
         }
         const updatedFormElement = {
-            ...updatedOrderForm[inputIdentifier]
+            ...updatedSignUpForm[inputIdentifier]
         };
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value,updatedFormElement.validation);
         updatedFormElement.touched = true;
-        updatedOrderForm[inputIdentifier]=updatedFormElement;
+        updatedSignUpForm[inputIdentifier]=updatedFormElement;
         
         let formIsValid = true;
-        for(let inputIdentifier in updatedOrderForm){
-            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+        for(let inputIdentifier in updatedSignUpForm){
+            formIsValid = updatedSignUpForm[inputIdentifier].valid && formIsValid;
         }
 
-        this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid})
+        this.setState({signUpForm: updatedSignUpForm, formIsValid: formIsValid})
     }
 
     render () {
         const formElementsArray = [];
-        for (let key in this.state.orderForm) {
+        for (let key in this.state.signUpForm) {
             formElementsArray.push({
                 id: key,
-                config: this.state.orderForm[key]
+                config: this.state.signUpForm[key]
             });
         }
         let form = (
-            <form >
+            <form onSubmit={this.formHandler} >
                 {formElementsArray.map(formElement => (
                     <Input 
                         key={formElement.id}
@@ -148,38 +154,45 @@ class ContactData extends Component {
                         shouldValidate={formElement.config.validation}
                         touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event,formElement.id)} />
+                    
                 ))}
-                {/* disabled={!this.state.formIsValid} */}
-                <Button btnType="Success" >SIGN UP</Button>
+                <Button btnType="Success" disabled={!this.state.formIsValid} >SIGN UP</Button>  
             </form>
         );
-        // if (this.props.loading){
-        //     form=<Spinner/>;
-        // }
+        if (this.props.loading){
+            form=<Spinner/>;
+        }
+        let errorMessage = null;
+        
+        if(this.props.error) {
+            errorMessage = (
+                <p style={{color: "#ff2459"}}>{this.props.error.message}</p>
+            );
+        }
         return (
-            <div className={classes.ContactData}>
+            <div className={classes.SignUp}>
                 <img className={classes.pic1} src={pic1} alt="Colossal"/>
+                {errorMessage}
                 {form}
+                
             </div>
         );
     }
 
 }
 
-// const mapStateToProps = state => {
-//     return {
-//         ings: state.burgerBuilder.ingredients,
-//         price: state.burgerBuilder.totalPrice,
-//         loading: state.order.loading,
-//         token: state.auth.token,
-//         userId: state.auth.userId
-//     }
-// };
+const mapStateToProps = state => {
+    return {
+        loading: state.signUp.loading,
+        error: state.signUp.error
+        
+    }
+};
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onOrderBurger: (orderData,token) => dispatch(actions.purchaseBurger(orderData,token))
-//     };
-// };
+const mapDispatchToProps = dispatch => {
+    return {
+        onSignUp: (formData,history) => dispatch(actions.signUp(formData,history))
+    };
+};
 
-export default ContactData;
+export default connect(mapStateToProps,mapDispatchToProps)(SignUp);

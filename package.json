@@ -13,7 +13,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "typescript": "^3.9.7",
+    "validator": "^13.1.1"
   },
   "scripts": {
     "start": "PORT=3006 react-scripts start",

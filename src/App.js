@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import { Route,Switch,withRouter,Redirect } from 'react-router-dom' ;
 
-import './App.css';
-
-import Signup from './containers/ContactData/ContactData';
+import Signup from './containers/SignUp/SignUp';
+import Otp from './containers/Otp/Otp';
 
 class App extends Component {
   render() {
     let routes = (
       <Switch>
         <Route path="/signup" component={Signup}/>
+        <Route path="/otp" component={Otp}/>
         <Redirect to="/"/>
       </Switch>
     );
