@@ -35,6 +35,9 @@ export const otpVerification = (otp,customerId, history) => {
                 
                 if(response.data.data.otpVerified){
                     dispatch(otpVerificationSuccess(otp,customerId,otpVerified))
+                    localStorage.setItem('token', response.data.data.token);
+                    localStorage.setItem('customerId', customerId);
+                    
                     axios.post("http://localhost:5000/notifyCustomer",{customerId:customerId, subject:"ACCONUT REGISTERED SUCCESSFULLY !!!", template: "welcome"})
                     .then(res => console.log(res))
                     .catch(err => console.log(err))

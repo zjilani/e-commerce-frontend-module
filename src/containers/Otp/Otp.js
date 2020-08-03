@@ -28,7 +28,7 @@ class Otp extends Component {
         this.setState({customerId: this.props.customerId})
         
     }
-    re_enterOtp = () => {
+    enterOtpAgain = () => {
         this.setState({otpSent: null})
     }
     
@@ -57,7 +57,7 @@ class Otp extends Component {
         }
         return(
             <div>
-                <Modal show={this.state.otpSent && (this.props.error === false)} modalClosed={this.re_enterOtp}>
+                <Modal show={this.state.otpSent && (this.props.error === false)} modalClosed={this.enterOtpAgain}>
                    <p>Incorrect Otp !!!</p>
                 </Modal>
                 {form}
