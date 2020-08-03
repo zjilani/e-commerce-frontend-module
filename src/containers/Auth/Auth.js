@@ -1,4 +1,6 @@
 import React , {Component} from 'react' ;
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Input from '../../components/UI/Input/Input'; 
 import validator from 'validator';
@@ -6,6 +8,9 @@ import Button from '../../components/UI/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.module.css';
 import pic1 from '../../assets/images/pic1.png';
+import axios from 'axios';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import * as actions from '../../store/actions/index';
 
 class Auth extends Component {
     state = {
@@ -14,7 +19,7 @@ class Auth extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Email Id'
+                    placeholder: 'Email'
                 },
                 value: '',
                 validation: {
@@ -54,16 +59,17 @@ class Auth extends Component {
                 touched: false
             }
         },
-        formIsValid: false
+        formIsValid: false,
+        isSignup: true
     }
     formHandler = (event) => {
         event.preventDefault();
-        // this.setState({ loading: true})
+        this.setState({ loading: true})
         const formData = {};
         for (let formElementIdentifier in this.state.loginForm){
             formData[formElementIdentifier] = this.state.loginForm[formElementIdentifier].value;
         }
-        // this.props.onSignUp(formData,this.props.history);
+        this.props.onAuth(formData,this.props.history);
         
     }
 
@@ -138,16 +144,44 @@ class Auth extends Component {
                 <Button btnType="Success" disabled={!this.state.formIsValid} >LOGIN</Button>  
             </form>
         );
-        // if (this.props.loading){
-        //     form=<Spinner/>;
-        // }
+        if (this.props.loading){
+            form=<Spinner/>;
+        }
+        let errorMessage = null;
+        
+        if(this.props.error) {
+            errorMessage = (
+                <p style={{color: "#ff2459"}}>{this.props.error.message}</p>
+            );
+        }
         return (
             <div className={classes.Auth}>
                 <img className={classes.pic1} src={pic1} alt="Colossal"/>
+                {errorMessage}
                 {form}
+                <hr style={{marginTop: "50px",backgroundColor: "#cccccc"}}/>
+                <div className={classes.switch}>
+                    <Link>Forgot Password?</Link><br/>
+                    <Link to="/signup">New to Colossal ? Create an account</Link>
+                </div>
+                
             </div>
         );
     }
 }
 
-export default Auth;
+const mapStateToProps = state => {
+    return {
+        loading: state.auth.loading,
+        error: state.auth.error
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: (formData,history) => dispatch(actions.auth(formData,history))
+    };
+
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(withErrorHandler(Auth,axios));

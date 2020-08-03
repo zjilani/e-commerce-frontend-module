@@ -72,7 +72,7 @@ const mapStateToProps = state => {
     return {
         loading: state.otp.loading,
         error: state.otp.error,
-        customerId: state.signUp.customerId
+        customerId: state.signUp.customerId || state.auth.customerId
     }
 };
 

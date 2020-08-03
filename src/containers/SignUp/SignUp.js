@@ -32,7 +32,7 @@ class SignUp extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Email Id'
+                    placeholder: 'Email'
                 },
                 value: '',
                 validation: {
@@ -46,7 +46,7 @@ class SignUp extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Mobile No.',
+                    placeholder: 'Mobile Number',
                     minLength: 10 ,
                     maxLength: 10
                 },
