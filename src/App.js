@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import { Route,Switch,withRouter,Redirect } from 'react-router-dom' ;
 
+import Layout from './hoc/Layout/Layout';
 import Auth from './containers/Auth/Auth';
 import Signup from './containers/SignUp/SignUp';
 import Otp from './containers/Otp/Otp';
+
 
 class App extends Component {
   render() {
@@ -17,7 +19,9 @@ class App extends Component {
     );
     return (
       <div>
+        <Layout>
         {routes}
+        </Layout>
       </div>
     );
   }
