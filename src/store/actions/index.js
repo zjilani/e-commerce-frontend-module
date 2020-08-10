@@ -8,3 +8,10 @@ export {
 export {
     auth
 } from './auth';
+export {
+    category
+} from './category';
+export {
+    getProducts,
+    getFeatures
+} from './products';

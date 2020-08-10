@@ -1,0 +1,27 @@
+.Products{
+    margin: 20px auto;
+    width:80%;
+    display:flex;
+    background-color: white;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.pic{
+    width:80%;
+}
+
+.Individual{
+    flex-basis: 33%;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid white;
+    padding: 25px;
+    box-sizing: border-box;
+}
+.Display{
+    margin: 20px auto;
+    align-items: center;
+}
+.Set {
+    /* margin: 0px; */
+    margin-left: 60px;
+}

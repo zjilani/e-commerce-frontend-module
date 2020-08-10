@@ -5,7 +5,7 @@ import Layout from './hoc/Layout/Layout';
 import Auth from './containers/Auth/Auth';
 import Signup from './containers/SignUp/SignUp';
 import Otp from './containers/Otp/Otp';
-
+import Products from './containers/Products/Products';
 
 class App extends Component {
   render() {
@@ -14,6 +14,7 @@ class App extends Component {
         <Route path="/login" component={Auth}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/otp" component={Otp}/>
+        <Route exact path="/:main/:sub" component={Products} />
         <Redirect to="/"/>
       </Switch>
     );

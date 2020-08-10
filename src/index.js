@@ -11,13 +11,17 @@ import * as serviceWorker from './serviceWorker';
 import signUpReducer from './store/reducers/signUp'; 
 import otpReducer from './store/reducers/otp';
 import authReducer from './store/reducers/auth';
+import categoryReducer from './store/reducers/category';
+import productsReducer from './store/reducers/products';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     signUp: signUpReducer,
     otp: otpReducer,
-    auth: authReducer
+    auth: authReducer,
+    category: categoryReducer,
+    products : productsReducer
 });
 
 const store = createStore( rootReducer , composeEnhancers(

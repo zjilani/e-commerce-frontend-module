@@ -1,30 +1,51 @@
-import React from 'react';
+import React , {Component} from 'react';
 import { Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import classes from './NavigationItems.module.css';
 // import cart from '../../../assets/images/cart.png';
 import NavigationItem from './NavigationItem/NavigationItem';
 
-const navigationItems = (props) => (
-    <ul className={classes.NavigationItems}>
-            <div className={classes.dropdown}>
-                <span className={classes.dropbtn}>ELECTRONICS</span>
-                    <div className={classes.dropdownContent}>
-                        <Link to="/signup">Air Conditioner</Link>
-                        <Link to="/otp">B</Link>
-                    </div>
-            </div>
-            
-            <div className={classes.Blank}></div>
-            {/* <img src={cart}/> */}
+class NavigationItems extends Component{
+    dataHandler = () => {
+        let Data = []
+        for(let a in this.props.data){
+        let data = [];
+        Data.push((  <div className={classes.dropdown}>
+                <button className={classes.dropbtn}>{a}</button>
+                        <div className={classes.dropdownContent}>
+                        {this.props.data[a].forEach(b => {
+                             data.push((<Link to={"/"+a+"/"+b}>{b}</Link>))
+                            })}
+                        {data}
+                        </div>
+                        
+            </div>));
+        }
+        
+        return Data;
+    }
 
+    render (){
+       var Data = this.dataHandler()
+        return (
             
-            <NavigationItem link="/cart">CART</NavigationItem>
-            {!props.isAuthenticated 
-                    ? <NavigationItem link="/login">LOGIN</NavigationItem>
-                    : <NavigationItem link="/logout">LOGOUT</NavigationItem>}
-    </ul>
-    
-);
+            <ul className={classes.NavigationItems}>
+                {Data}
+                <div className={classes.Blank}></div>
+                 {/* <img src={cart}/>  */}
+                <NavigationItem link="/cart">CART</NavigationItem>
+                <NavigationItem link="/login">LOGIN</NavigationItem> 
+                
+            </ul>
+            
+        )
+    }
+} 
+const mapStateToProps = state => {
+    return {
+        data: state.category.data
+    }
+}
 
-export default navigationItems;
+export default connect(mapStateToProps)(NavigationItems);

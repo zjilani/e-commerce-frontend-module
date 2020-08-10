@@ -5,6 +5,7 @@ import Aux from '../Auxiliary/Auxiliary';
 import classes from './Layout.module.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import * as actions from '../../store/actions/index';
 
 class Layout extends Component {
     state = {
@@ -13,6 +14,9 @@ class Layout extends Component {
 
     sideDrawerClosedHandler = () => {
         this.setState({showSideDrawer: false});
+    }
+    componentDidMount(){
+        this.props.getCategory()
     }
 
     sideDrawerToggleHandler = () => {
@@ -26,7 +30,7 @@ class Layout extends Component {
             <Aux>
                 <Toolbar
                     isAuth={this.props.isAuthenticated}
-                    drawerToggleClicked={this.sideDrawerToggleHandler } />
+                    drawerToggleClicked={this.sideDrawerToggleHandler }/>
                 <SideDrawer
                     isAuth={this.props.isAuthenticated}
                     open={this.state.showSideDrawer} 
@@ -39,10 +43,12 @@ class Layout extends Component {
     }
 }
 
-const mapStateToProps = state => {
+
+const mapDispatchToProps = dispatch => {
     return {
-        isAuthenticated: state.auth.token !== null
+        getCategory: ()=>dispatch(actions.category())
     };
 };
 
-export default connect(mapStateToProps)(Layout);
+
+export default connect(null,mapDispatchToProps)(Layout);

@@ -18,7 +18,7 @@
 
 .Logo {
     height: 80%;
-    flex-basis: 16%;
+    flex-basis: 25%;
 }
 
 @media (max-width: 499px) {
