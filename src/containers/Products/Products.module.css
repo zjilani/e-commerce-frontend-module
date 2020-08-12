@@ -1,6 +1,6 @@
 .Products{
     margin: 20px auto;
-    width:80%;
+    width:70%;
     display:flex;
     background-color: white;
     justify-content: space-between;
@@ -12,16 +12,38 @@
 
 .Individual{
     flex-basis: 33%;
-    box-shadow: 0 2px 3px #ccc;
-    border: 1px solid white;
     padding: 25px;
     box-sizing: border-box;
 }
 .Display{
+    display: flex;
+}
+.PageName{
+    display: flex;
+    color: #47526F;
+    margin-left: 50px;
+    font-weight: 600;
+    font-size: x-large;
+}
+.Filter {
+    background-color: white;
     margin: 20px auto;
-    align-items: center;
+    width:20%;
+    
+}
+.FilterDisplay{
+    margin: 30px 10px auto 10px;
+    text-align: center;
+    box-shadow: 0 1px 2px #ccc;
+    border: 1px solid #eee;
+    padding: 25px;
+    padding-bottom: 50px;
+    box-sizing: border-box;
 }
 .Set {
-    /* margin: 0px; */
     margin-left: 60px;
+}
+.Individual:hover{
+    box-shadow: 0 3px 4px #ccc;
+    border: 1px solid white;
 }

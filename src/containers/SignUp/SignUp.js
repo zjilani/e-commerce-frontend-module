@@ -145,6 +145,7 @@ class SignUp extends Component {
             <form onSubmit={this.formHandler} >
                 {formElementsArray.map(formElement => (
                     <Input 
+                        type='InputElement'
                         key={formElement.id}
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}

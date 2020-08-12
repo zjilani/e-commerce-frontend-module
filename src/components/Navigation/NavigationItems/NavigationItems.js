@@ -15,7 +15,7 @@ class NavigationItems extends Component{
                 <button className={classes.dropbtn}>{a}</button>
                         <div className={classes.dropdownContent}>
                         {this.props.data[a].forEach(b => {
-                             data.push((<Link to={"/"+a+"/"+b}>{b}</Link>))
+                             data.push((<Link to={"/products/"+a+"/"+b}>{b}</Link>))
                             })}
                         {data}
                         </div>

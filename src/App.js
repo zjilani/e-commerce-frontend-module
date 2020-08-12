@@ -14,7 +14,7 @@ class App extends Component {
         <Route path="/login" component={Auth}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/otp" component={Otp}/>
-        <Route exact path="/:main/:sub" component={Products} />
+        <Route exact path="/products/:main/:sub" component={Products} />
         <Redirect to="/"/>
       </Switch>
     );

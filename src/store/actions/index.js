@@ -12,6 +12,5 @@ export {
     category
 } from './category';
 export {
-    getProducts,
-    getFeatures
+    getFilteredProducts
 } from './products';

@@ -1,5 +1,5 @@
 .Button  {
-    width: 30%;
+    
     background-color: #47526F;
     border: none;
     padding: 10px 10px;
@@ -9,7 +9,6 @@
     margin: 4px 4px;
     margin-top: 10px;
     cursor: pointer;
-    border-radius: 16px;
 }
 
 .Button:first-of-type {
@@ -23,8 +22,11 @@
 
 .Success {
     color: #E9E9E9;
+    border-radius: 16px;
+    width: 30%;
 }
 
 .Danger {
-    color: #944317;
+    color: #E9E9E9;
+    width: 40%;
 }
