@@ -14,3 +14,6 @@ export {
 export {
     getFilteredProducts
 } from './products';
+export {
+    getProduct
+} from './product';

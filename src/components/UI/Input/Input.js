@@ -40,7 +40,7 @@ const input = (props) => {
                     defaultValue={props.value} onChange={props.changed} >
                     {props.elementConfig.options.map(option => (
                         
-                        <option key={option.value} defaultValue={option.value}>
+                        <option key={option.value} defaultValue={option.value} disabled={option.value === ''} selected={option.value === ''}>
                             {option.displayValue}
                         </option>
                     ))}

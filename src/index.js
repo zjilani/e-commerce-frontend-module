@@ -13,6 +13,7 @@ import otpReducer from './store/reducers/otp';
 import authReducer from './store/reducers/auth';
 import categoryReducer from './store/reducers/category';
 import productsReducer from './store/reducers/products';
+import productReducer from './store/reducers/product';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
     otp: otpReducer,
     auth: authReducer,
     category: categoryReducer,
-    products : productsReducer
+    products : productsReducer,
+    product: productReducer
 });
 
 const store = createStore( rootReducer , composeEnhancers(

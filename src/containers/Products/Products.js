@@ -26,6 +26,9 @@ class Products extends Component {
         return true;
         
     }
+    showProduct = (product) => {
+        this.props.history.push('/product/'+product.productId)
+    }
 
     
     productHandler = () => {
@@ -34,7 +37,7 @@ class Products extends Component {
             this.props.products.forEach( product => {
                 
                 let a = (
-                    <div className={classes.Individual}>
+                    <div className={classes.Individual} onClick={()=> this.showProduct(product)}>
                         <img  className={classes.pic} src={"https://ecommerce12.s3.ap-south-1.amazonaws.com/"+product.productFeatures.thumbnails[0]} alt={product.productFeatures.thumbnails[0]}/>
                         <p className={classes.Set}>{product.productFeatures.productName}</p>
                         <p className={classes.Set}>&#8377; {product.price}</p>
